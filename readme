@@ -1,0 +1,14 @@
+项目：实现一个简化版spring
+目标：源码功能庞大，代码量大，想要通过源码了解核心原理和链路十分困难
+通过阅读/实现简化版spring，提高学习spring源码的效率，从开发者角度去理解spring的设计思想
+整体方向：只简化各自实现，不魔改。
+所有核心方法都会对标spring原方法，可以在源码直接找到对应的位置
+所有类都会对标spring原类，尽量100%还原名称和核心方法
+
+
+需求整理：
+保留所有spring的扩展点。包括不限于Aware、BeanPostProcessor、BeanFactoryPostProcessor等等
+支持@component注解，自动扫描、装配bean
+支持@autowired注解，自动注入bean
+三级缓存解决循环依赖
+直接@Logger注解，对标(简化)AOP注解,加入Logger注解的类，所有方法调用都会打印日志
