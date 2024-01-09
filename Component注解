@@ -1,0 +1,6 @@
+需求详情
+类上加了Component注解，在spring启动后会被自动装配到spring容器内管理
+名字取类名，首字母小写
+
+spring实现原理概述
+创建Context的时候，会把ConfigurationClassPostProcessor注册到definition
