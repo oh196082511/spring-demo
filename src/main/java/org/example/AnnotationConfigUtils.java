@@ -9,7 +9,7 @@ public class AnnotationConfigUtils {
      * The bean name of the internally managed Configuration annotation processor.
      */
     public static final String CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME =
-            "org.springframework.context.annotation.internalConfigurationAnnotationProcessor";
+            "org.example.configurationClassPostProcessor";
 
     /**
      * 把相关的postProcessors注册到registry中

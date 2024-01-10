@@ -24,4 +24,12 @@ public class DemoBeanDefinition implements BeanDefinition {
     public void setBeanClass(Class<?> beanClass) {
         this.beanClass = beanClass;
     }
+
+    /**
+     * 返回beanClass
+     * 对标AbstractBeanDefinition的getBeanClass方法
+     */
+    public Class<?> getBeanClass(){
+        return (Class<?>) beanClass;
+    }
 }
