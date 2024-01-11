@@ -128,8 +128,14 @@ public class DemoApplicationContext implements BeanDefinitionRegistry {
      * 简单实现
      */
     public <T> T getBean(String name, Class<T> requiredType) {
-        // TODO
-        return null;
+        // TODO 后续三级缓存实现
+        try {
+            DemoBeanDefinition demoBeanDefinition = (DemoBeanDefinition) beanDefinitionMap.get(name);
+            return (T) demoBeanDefinition.getBeanClass().getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("getBean error");
+        }
     }
 
 }

@@ -9,7 +9,7 @@ public class AnnotationConfigUtils {
      * The bean name of the internally managed Configuration annotation processor.
      */
     public static final String CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME =
-            "org.example.configurationClassPostProcessor";
+            "org.example.ConfigurationClassPostProcessor";
 
     /**
      * 把相关的postProcessors注册到registry中
