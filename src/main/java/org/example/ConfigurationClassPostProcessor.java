@@ -12,12 +12,14 @@ import java.util.List;
  */
 public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
+    private final String BASE_PACKAGE = "org";
+
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
         // 负责将注解的类放入BeanDefinitionMap中
         ClassLoader contextClassLoader =  Thread.currentThread().getContextClassLoader();
         try {
-            URL resource = contextClassLoader.getResource("org/example");
+            URL resource = contextClassLoader.getResource(BASE_PACKAGE);
             File file = new File(resource.toURI());
             List<Class> classes = new ArrayList<>();
             dfsLoadClass(file, classes);
@@ -34,7 +36,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
         if (file.getName().endsWith(".class")) {
             try {
                 String path = file.getPath();
-                int pos = path.indexOf("org\\example");
+                int pos = path.indexOf(BASE_PACKAGE);
                 String targetName = path.substring(pos, path.length() - 6).replace("\\", ".");
                 Class<?> aClass = Thread.currentThread().getContextClassLoader().loadClass(targetName);
                 Component annotation = aClass.getAnnotation(Component.class);
