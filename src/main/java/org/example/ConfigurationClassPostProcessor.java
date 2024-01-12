@@ -16,6 +16,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
+        System.out.println("ConfigurationClassPostProcessor负责将所有component注解的类放入BeanDefinitionMap中");
         // 负责将注解的类放入BeanDefinitionMap中
         ClassLoader contextClassLoader =  Thread.currentThread().getContextClassLoader();
         try {
@@ -29,7 +30,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        System.out.println("所有component注解的类均已放入BeanDefinitionMap中，完成ConfigurationClassPostProcessor的工作");
     }
 
     private void dfsLoadClass(File file, List<Class> classToAdd) {

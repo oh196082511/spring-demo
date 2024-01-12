@@ -6,7 +6,7 @@ package org.example;
  */
 public class DemoBeanDefinition implements BeanDefinition {
 
-    private volatile Object beanClass;
+    private volatile Class<?> beanClass;
 
     /**
      * Create a new RootBeanDefinition for a singleton.
@@ -30,6 +30,6 @@ public class DemoBeanDefinition implements BeanDefinition {
      * 对标AbstractBeanDefinition的getBeanClass方法
      */
     public Class<?> getBeanClass(){
-        return (Class<?>) beanClass;
+        return beanClass;
     }
 }

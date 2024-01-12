@@ -1,10 +1,10 @@
 package org.example;
 
 @Component
-public class TestA {
+public class TestB {
 
     @Autowired
-    private TestB testB;
+    private TestA testA;
 
     @Autowired
     private TestC testC;

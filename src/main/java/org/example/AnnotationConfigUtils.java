@@ -12,6 +12,12 @@ public class AnnotationConfigUtils {
             "org.example.ConfigurationClassPostProcessor";
 
     /**
+     * The bean name of the internally managed Autowired annotation processor.
+     */
+    public static final String AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME =
+            "org.example.AutowiredAnnotationBeanPostProcessor";
+
+    /**
      * 把相关的postProcessors注册到registry中
      * @param registry the registry to operate on
      */
@@ -20,6 +26,13 @@ public class AnnotationConfigUtils {
             // 负责把component注解的bean注册到beanFactory中
             DemoBeanDefinition demoBeanDefinition = new DemoBeanDefinition(ConfigurationClassPostProcessor.class);
             registry.registerBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME, demoBeanDefinition);
+            System.out.println("把负责component的注解放入BeanDefinitionMap里，供后续使用");
+        }
+        if (!registry.containsBeanDefinition(AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME)) {
+            // 负责把autowired注解的bean注册到beanFactory中
+            DemoBeanDefinition demoBeanDefinition = new DemoBeanDefinition(AutowiredAnnotationBeanPostProcessor.class);
+            registry.registerBeanDefinition(AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME, demoBeanDefinition);
+            System.out.println("把负责autowired的注解放入BeanDefinitionMap里，供后续使用");
         }
     }
 
