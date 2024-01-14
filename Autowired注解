@@ -1,0 +1,8 @@
+需求详情
+beanA的变量B上加了Autowired注解，在beanA初始化时，会为变量B注入beanB的实例
+名字取类名
+
+实现原理
+1、context创建时，把AutowiredAnnotationBeanPostProcessor注册到definition里
+2、把AutowiredAnnotationBeanPostProcessor的bean实例化
+3、其它bean实例化时，在populateBean方法里，会调用AutowiredAnnotationBeanPostProcessor的postProcessProperties方法
