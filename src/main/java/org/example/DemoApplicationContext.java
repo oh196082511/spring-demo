@@ -238,6 +238,7 @@ public class DemoApplicationContext implements BeanDefinitionRegistry {
             // 由factory方法逻辑保证，创建完整对象(属性自动注入、初始化方法调用、动态代理等等)
             singletonObject = singletonFactory.getObject();
             // 创造完成后，放入一级缓存，同时清除其他缓存
+            System.out.println("创建完成，放入一级缓存，同时清除其他缓存，beanName=" + beanName);
             addSingleton(beanName, singletonObject);
         }
         return singletonObject;
