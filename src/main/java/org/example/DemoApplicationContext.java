@@ -360,6 +360,7 @@ public class DemoApplicationContext implements BeanDefinitionRegistry {
                 // 没有二级缓存，直接用三级缓存算出二级缓存
                 ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
                 if (singletonFactory != null) {
+                    System.out.println("三级缓存拿到了，准备创建bean，并且将结果放入二级缓存，beanName=" + beanName);
                     singletonObject = singletonFactory.getObject();
                     this.earlySingletonObjects.put(beanName, singletonObject);
                     this.singletonFactories.remove(beanName);
