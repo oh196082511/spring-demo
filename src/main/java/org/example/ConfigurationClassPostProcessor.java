@@ -39,6 +39,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
                 String path = file.getPath();
                 int pos = path.indexOf(BASE_PACKAGE);
                 String targetName = path.substring(pos, path.length() - 6).replace("\\", ".");
+                targetName = targetName.replace("/", ".");
                 Class<?> aClass = Thread.currentThread().getContextClassLoader().loadClass(targetName);
                 Component annotation = aClass.getAnnotation(Component.class);
                 if (annotation != null) {
