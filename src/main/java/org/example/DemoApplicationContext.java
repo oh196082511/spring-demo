@@ -459,7 +459,7 @@ public class DemoApplicationContext implements BeanDefinitionRegistry {
         // TODO 触发各种扩展点
 
         wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
-        return bean;
+        return wrappedBean;
     }
 
     public Object applyBeanPostProcessorsBeforeInitialization(Object existingBean, String beanName) {
