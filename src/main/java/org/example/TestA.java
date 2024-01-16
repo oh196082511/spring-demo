@@ -1,5 +1,6 @@
 package org.example;
 
+@Logger
 @Component
 public class TestA {
 
@@ -8,4 +9,8 @@ public class TestA {
 
     @Autowired
     private TestC testC;
+
+    public void test() {
+        System.out.println("打印日志：testA");
+    }
 }

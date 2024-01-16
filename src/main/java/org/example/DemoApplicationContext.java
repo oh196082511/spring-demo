@@ -68,7 +68,23 @@ public class DemoApplicationContext implements BeanDefinitionRegistry {
         // Register bean processors that intercept bean creation.
         registerBeanPostProcessors();
 
+        // Instantiate all remaining (non-lazy-init) singletons.
+        finishBeanFactoryInitialization();
 
+    }
+
+    /**
+     * Finish the initialization of this context's bean factory,
+     * initializing all remaining singleton beans.
+     */
+    protected void finishBeanFactoryInitialization() {
+        // Instantiate all remaining (non-lazy-init) singletons.
+        List<String> beanNames = new ArrayList<>(this.beanDefinitionNames);
+
+        // Trigger initialization of all non-lazy singleton beans...
+        for (String beanName : beanNames) {
+            getBean(beanName, getBeanDefinition(beanName).getBeanClass());
+        }
     }
 
     /**
@@ -396,7 +412,21 @@ public class DemoApplicationContext implements BeanDefinitionRegistry {
      * @return the object to expose as bean reference
      */
     protected Object getEarlyBeanReference(String beanName, Object bean) {
-        return bean;
+        Object exposedObject = bean;
+        if (hasInstantiationAwareBeanPostProcessors()) {
+            for (SmartInstantiationAwareBeanPostProcessor bp : getBeanPostProcessorCache().smartInstantiationAware) {
+                exposedObject = bp.getEarlyBeanReference(exposedObject, beanName);
+            }
+        }
+        return exposedObject;
+    }
+
+    /**
+     * Return whether this factory holds a InstantiationAwareBeanPostProcessor
+     * that will get applied to singleton beans on creation.
+     */
+    protected boolean hasInstantiationAwareBeanPostProcessors() {
+        return !getBeanPostProcessorCache().instantiationAware.isEmpty();
     }
 
     /**
@@ -422,8 +452,44 @@ public class DemoApplicationContext implements BeanDefinitionRegistry {
      * @return the initialized bean instance (potentially wrapped)
      */
     protected Object initializeBean(String beanName, Object bean) {
+        Object wrappedBean = bean;
+        wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
+
+
         // TODO 触发各种扩展点
+
+        wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
         return bean;
+    }
+
+    public Object applyBeanPostProcessorsBeforeInitialization(Object existingBean, String beanName) {
+
+        Object result = existingBean;
+        for (BeanPostProcessor processor : getBeanPostProcessors()) {
+            Object current = processor.postProcessBeforeInitialization(result, beanName);
+            if (current == null) {
+                return result;
+            }
+            result = current;
+        }
+        return result;
+    }
+
+    public Object applyBeanPostProcessorsAfterInitialization(Object existingBean, String beanName) {
+
+        Object result = existingBean;
+        for (BeanPostProcessor processor : getBeanPostProcessors()) {
+            Object current = processor.postProcessAfterInitialization(result, beanName);
+            if (current == null) {
+                return result;
+            }
+            result = current;
+        }
+        return result;
+    }
+
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return this.beanPostProcessors;
     }
 
     /**

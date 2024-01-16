@@ -9,6 +9,7 @@ public class Main {
         TestC testC = applicationContext.getBean("org.example.TestC", TestC.class);
         ProcessorB processorB = applicationContext.getBean("org.example.ProcessorB", ProcessorB.class);
         ProcessorA processorA = applicationContext.getBean("org.example.ProcessorA", ProcessorA.class);
+        testA.test();
         System.out.println();
     }
 }

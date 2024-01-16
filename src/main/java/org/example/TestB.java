@@ -1,5 +1,6 @@
 package org.example;
 
+@Logger
 @Component
 public class TestB {
 
